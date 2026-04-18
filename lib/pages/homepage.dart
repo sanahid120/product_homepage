@@ -25,6 +25,7 @@ class _HomepageState extends State<Homepage> {
       ),
 
       body: Column(
+
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -33,60 +34,74 @@ class _HomepageState extends State<Homepage> {
               padding: const EdgeInsets.all(8.0),
               child: GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
+                  crossAxisCount: 2,
                   crossAxisSpacing: 4,
                   mainAxisSpacing: 3,
-                  childAspectRatio: 0.8
+                  childAspectRatio: 0.8,
                 ),
                 itemCount: 20,
                 itemBuilder: (context, value) {
-                  return InkWell(
+                  return GestureDetector(
+                    onLongPressStart: (details) {
+                      showMenu(
 
-                    onTap: () {},
+                        context: context,
+                        position: RelativeRect.fromLTRB(
+
+                          details.globalPosition.dx,
+                          details.globalPosition.dy,
+                          details.globalPosition.dx,
+                          details.globalPosition.dy,
+                        ),
+                        items: [
+                          PopupMenuItem(onTap: (){menuFunction('edit');},padding: EdgeInsets.all(6),value: 'edit', child: Text('Edit')),
+                          PopupMenuItem(onTap: (){menuFunction('delete');},padding: EdgeInsets.all(6),value: 'delete', child: Text('Delete'),),
+                        ],
+                      );
+                    },
                     child: Card(
-
                       child: Column(
-
                         children: [
-
-                          Stack(
-                            alignment: Alignment.center,
+                          SizedBox(
+                            height: 140,
+                            child: Image.network(
+                              'https://d2v5dzhdg4zhx3.cloudfront.net/web-assets/images/storypages/primary/ProductShowcasesampleimages/JPEG/Product+Showcase-1.jpg',
+                            ),
+                          ),
+                          SizedBox(height: 5),
+                          Text(
+                            ' Shoe',
+                            style: TextStyle(
+                              fontSize: 16,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Image.network(
-                                height: 140,
-                                width: 150,
-                                'https://d2v5dzhdg4zhx3.cloudfront.net/web-assets/images/storypages/primary/ProductShowcasesampleimages/JPEG/Product+Showcase-1.jpg',
-                              ),
-                              Positioned(
-                                right: 5,
-                                top: 5,
-                                child: IconButton(
-
-                                  onPressed: () {},
-                                  icon: Icon(Icons.favorite,color: Colors.black,),
+                              Text(
+                                "Price: \$900",
+                                style: TextStyle(
+                                  fontSize: 9,
+                                  fontWeight: FontWeight.normal,
                                 ),
                               ),
-                              Positioned(
-                                left: 5,
-                                top: 5,
-                                child: IconButton(
-
-                                  onPressed: () {},
-                                  icon: Icon(Icons.shopping_cart,color: Colors.black,),
+                              Text(
+                                '||',
+                                style: TextStyle(
+                                  fontSize: 9,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                              Text(
+                                'QTY: 10',
+                                style: TextStyle(
+                                  fontSize: 9,
+                                  fontWeight: FontWeight.normal,
                                 ),
                               ),
                             ],
                           ),
-                          Text('Product Title',style: TextStyle(fontSize: 16),),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text("Price: \$900", style: TextStyle(fontSize: 9,fontWeight: FontWeight.normal,)),
-                              Text('||',style: TextStyle(fontSize: 9,fontWeight: FontWeight.normal,)),
-                              Text('QTY: 10',style: TextStyle(fontSize: 9,fontWeight: FontWeight.normal,)),
-                            ],
-                          )
-
                         ],
                       ),
                     ),
@@ -97,6 +112,26 @@ class _HomepageState extends State<Homepage> {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {menuFunction('add');},
+        elevation: 100,
+        backgroundColor: Colors.grey,
+        foregroundColor: Colors.black,
+        child: Icon(Icons.add),
+      ),
     );
+  }
+
+  VoidCallback? menuFunction(String text) {
+    if(text=="edit"){
+
+    }
+    if(text=="delete"){
+
+    }
+    if(text=="add"){
+
+    }
+    return null;
   }
 }
